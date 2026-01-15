@@ -1,0 +1,200 @@
+================================================================================
+                    NLScraper - Getting Started
+         High-Performance Web Scraper for Noel Leeming
+================================================================================
+
+🚀 QUICK START (3 Steps)
+================================================================================
+
+1. Install Dependencies:
+   pip install -r requirements.txt
+
+2. Run the Scraper:
+   python main.py
+
+3. Check the Output:
+   - CSV files will be in: output/
+   - Images will be in: images/
+   - Logs will be in: logs/
+
+That's it! The scraper will start extracting product data from Noel Leeming.
+
+================================================================================
+📚 IMPORTANT DOCUMENTATION
+================================================================================
+
+Before running the scraper, please read:
+
+1. README.md - Complete documentation (MUST READ)
+   - All features explained
+   - Configuration options
+   - Usage examples
+   - TradeMe upload instructions
+
+2. QUICKSTART.md - Fast setup guide
+   - 5-minute setup
+   - Common commands
+   - Quick troubleshooting
+
+3. TROUBLESHOOTING.md - Problem solving
+   - Common issues and solutions
+   - Performance tips
+   - Debugging guide
+
+4. IMPLEMENTATION_SUMMARY.md - Technical details
+   - Architecture overview
+   - Module descriptions
+   - Extensibility guide
+
+================================================================================
+⚙️ BASIC COMMANDS
+================================================================================
+
+# Standard run (full scrape)
+python main.py
+
+# Test run (10 products, no images)
+python main.py --max-products 10 --no-images
+
+# Fast run (no images)
+python main.py --no-images
+
+# Excel output instead of CSV
+python main.py --format excel
+
+# Increase delay (more respectful)
+python main.py --delay 5
+
+# Verbose logging (for debugging)
+python main.py --log-level DEBUG
+
+# Resume from checkpoint (automatic)
+python main.py --resume
+
+================================================================================
+📁 WHAT GETS CREATED
+================================================================================
+
+After running, you'll have:
+
+output/
+  ├── noel_leeming_products_TIMESTAMP.csv        (Main data)
+  └── noel_leeming_products_trademe_TIMESTAMP.csv (TradeMe format)
+
+images/
+  └── [Downloaded product images]
+
+logs/
+  └── scraper.log (Detailed logs)
+
+checkpoints/
+  └── scraper.checkpoint (Resume point)
+
+================================================================================
+🎯 TRADEME UPLOAD
+================================================================================
+
+1. Run the scraper
+2. Find the TradeMe CSV in output/
+3. Open the file to verify data
+4. Manually upload to TradeMe using their import tool
+
+The TradeMe CSV has the following columns ready for upload:
+- Title, Category, Description
+- StartPrice, BuyNowPrice
+- Photos, Condition, ShippingInfo
+- SKU
+
+================================================================================
+⚠️ IMPORTANT NOTES
+================================================================================
+
+ETHICAL SCRAPING:
+- Default delay: 2 seconds between requests
+- Respects robots.txt
+- Automatic throttling
+- Don't reduce delays too much
+
+INTERRUPTIONS:
+- Press Ctrl+C to stop
+- Progress is saved automatically every 50 products
+- Run again with --resume to continue
+
+FIRST RUN:
+- Test with: python main.py --max-products 5 --no-images
+- Check output files are correct
+- Then run full scrape
+
+WEBSITE CHANGES:
+- If website structure changes, selectors may need updating
+- Check scraper.py for selector lists
+- Update as needed based on actual website
+
+================================================================================
+🆘 NEED HELP?
+================================================================================
+
+1. Check logs/scraper.log for detailed information
+2. Read TROUBLESHOOTING.md for common issues
+3. Run with --log-level DEBUG for verbose output
+4. Open an issue on GitHub with logs
+
+================================================================================
+✅ VERIFICATION
+================================================================================
+
+Before running, verify installation:
+python test_structure.py
+
+This will check:
+- All modules import correctly
+- Directories are created
+- Configuration is loaded
+- Everything is ready
+
+================================================================================
+📊 EXPECTED RUNTIME
+================================================================================
+
+Small test (10 products, no images):    ~30 seconds
+Medium run (100 products, with images): ~10-15 minutes
+Full site scrape:                       Several hours
+
+Actual time depends on:
+- Number of products on website
+- Request delay setting
+- Image download setting
+- Internet connection speed
+
+================================================================================
+🔧 CONFIGURATION
+================================================================================
+
+Edit config.py to customize:
+
+REQUEST_DELAY = 2        # Delay between requests (seconds)
+DOWNLOAD_IMAGES = True   # Download images?
+OUTPUT_FORMAT = 'csv'    # 'csv' or 'excel'
+TRADEME_COMPATIBLE = True # Generate TradeMe format?
+
+See config.example.py for all options with explanations.
+
+================================================================================
+🎉 YOU'RE READY!
+================================================================================
+
+Everything is set up and ready to go!
+
+Quick test:
+  python main.py --max-products 5 --no-images
+
+Full run:
+  python main.py
+
+Good luck with your scraping! 🚀
+
+For detailed information, read README.md
+For quick setup, read QUICKSTART.md
+For problems, read TROUBLESHOOTING.md
+
+================================================================================

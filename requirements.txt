@@ -1,0 +1,34 @@
+# NLScraper Requirements
+# Core scraping libraries
+scrapy>=2.11.0
+selenium>=4.16.0
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+
+# Web driver management
+webdriver-manager>=4.0.1
+
+# Data processing and export
+pandas>=2.1.4
+openpyxl>=3.1.2
+
+# HTTP requests and handling
+requests>=2.31.0
+aiohttp>=3.9.1
+
+# Rate limiting and throttling
+ratelimit>=2.2.1
+
+# Image processing
+Pillow>=10.1.0
+
+# Logging and monitoring
+coloredlogs>=15.0.1
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.66.1
+
+# Testing (optional)
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
