@@ -1,0 +1,13 @@
+include README.md
+include LICENSE
+include requirements.txt
+include QUICKSTART.md
+include TROUBLESHOOTING.md
+include config.example.py
+recursive-include output *.csv *.xlsx
+recursive-exclude output *
+recursive-exclude images *
+recursive-exclude checkpoints *
+recursive-exclude logs *
+recursive-exclude __pycache__ *
+recursive-exclude *.pyc *

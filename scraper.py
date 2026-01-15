@@ -20,6 +20,7 @@ import random
 
 import config
 from utils import setup_logging, save_checkpoint, load_checkpoint, sanitize_filename
+from robots_checker import RobotsChecker
 
 
 class NoelLeemingScraper:
@@ -33,6 +34,11 @@ class NoelLeemingScraper:
         self.categories = []
         self.checkpoint_file = os.path.join(config.CHECKPOINTS_DIR, 'scraper.checkpoint')
         self.driver = None
+        self.robots_checker = RobotsChecker()
+        
+        # Load robots.txt
+        if config.RESPECT_ROBOTS_TXT:
+            self.robots_checker.load_robots_txt(config.BASE_URL)
         
         # Set up session headers
         self.session.headers.update({
@@ -87,13 +93,21 @@ class NoelLeemingScraper:
         Returns:
             HTML content or None if failed
         """
+        # Check robots.txt
+        if config.RESPECT_ROBOTS_TXT and not self.robots_checker.can_fetch(url):
+            self.logger.warning(f"URL blocked by robots.txt: {url}")
+            return None
+        
+        # Get appropriate delay
+        delay = self.robots_checker.should_respect_delay() if config.RESPECT_ROBOTS_TXT else config.REQUEST_DELAY
+        
         for attempt in range(config.MAX_RETRIES):
             try:
                 if use_selenium and config.USE_SELENIUM:
                     self._setup_selenium()
                     if self.driver:
                         self.driver.get(url)
-                        time.sleep(config.REQUEST_DELAY)
+                        time.sleep(delay)
                         return self.driver.page_source
                 
                 # Use requests for static content
@@ -104,7 +118,7 @@ class NoelLeemingScraper:
                 )
                 
                 if response.status_code == 200:
-                    time.sleep(config.REQUEST_DELAY)  # Throttling
+                    time.sleep(delay)  # Throttling
                     return response.text
                 elif response.status_code == 404:
                     self.logger.warning(f"Page not found (404): {url}")
