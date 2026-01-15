@@ -5,7 +5,7 @@ Copy this file to config.py and adjust settings as needed
 import os
 
 # Base paths
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
 IMAGES_DIR = os.path.join(BASE_DIR, 'images')
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, 'checkpoints')

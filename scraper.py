@@ -307,8 +307,14 @@ class NoelLeemingScraper:
                 element = soup.select_one(selector)
                 if element:
                     price_text = element.get_text(strip=True)
-                    # Extract numeric value
-                    price = ''.join(filter(lambda x: x.isdigit() or x == '.', price_text))
+                    # Extract numeric value - handle various formats
+                    # Remove currency symbols and spaces
+                    price_cleaned = price_text.replace('$', '').replace(',', '').strip()
+                    # Extract only digits and single decimal point
+                    import re
+                    price_match = re.search(r'\d+\.?\d*', price_cleaned)
+                    if price_match:
+                        price = price_match.group()
                     break
             
             # Extract description

@@ -125,14 +125,23 @@ def format_price(price_string: str) -> str:
     Returns:
         Formatted price string
     """
-    # Remove currency symbols and extra spaces
-    price = re.sub(r'[^\d.]', '', price_string)
+    if not price_string or price_string == 'N/A':
+        return price_string
+    
+    # Remove currency symbols, spaces, and commas
+    price_cleaned = price_string.replace('$', '').replace(',', '').replace(' ', '').strip()
+    
+    # Extract numeric value with single decimal point using regex
+    price_match = re.search(r'\d+\.?\d*', price_cleaned)
+    
+    if not price_match:
+        return price_string
     
     try:
         # Convert to float and format
-        price_float = float(price)
+        price_float = float(price_match.group())
         return f"${price_float:.2f}"
-    except ValueError:
+    except (ValueError, AttributeError):
         return price_string
 
 
